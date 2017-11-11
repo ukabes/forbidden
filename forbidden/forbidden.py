@@ -61,13 +61,14 @@ class Forbidden():
 
 	def _forbid_recursive_no_keys(self,data,depth=0):
 		glue = self.join_at(depth)
-
+		print(data)
 		if not any(isinstance(element,(list,tuple)) for element in data):
-			return glue.join(data)
+			return data if isinstance(data,str) else glue.join(data)
 		else:
 			elements = []
 			for element in data:
 				elements.append(self._forbid_recursive_no_keys(element,depth+1))
+			print(elements)
 			return self._forbid_recursive_no_keys(elements,depth)
 
 	def allow(self):
@@ -75,9 +76,7 @@ class Forbidden():
 		convert data to python data type, like list, dict ...
 		for now return only lists and dicts
 		'''
-		if self._data_type == ALLOWED:
-			return self._data
-		data = self._data
+		data = self.forbid() if self._data_type == ALLOWED else self._data
 		return self._allow_recursive_no_keys(data,depth=0)
 
 	def _allow_recursive_no_keys(self,data,depth=0):
@@ -89,7 +88,7 @@ class Forbidden():
 				elements.append(self._allow_recursive_no_keys(element,depth+1))
 			return elements
 		else:
-			return data if '"' in data else str_to_num(data)
+			return data.strip('"') if '"' in data else str_to_num(data)
 			
 
 

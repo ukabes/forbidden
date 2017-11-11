@@ -40,14 +40,14 @@ def str_to_num(str):
 class Forbidden():
 	'''Forbidden Class'''
 
-	def __init__(self,data,forbidden_char='`'):
+	def __init__(self,data,forbidden_char='`',forbidden_alias=''):
 		'''Class constructor
 		:param data: could be a list, dictionary, set, array ...
 		it could also be a forbidden_string format ...
 		:param forbidden_char: is the only character that is not allowed in your data
 		the default character is the grave character, hence "forbidden grave".
 		'''
-		self.reset(data,forbidden_char)
+		self.reset(data,forbidden_char,forbidden_alias)
 
 	def forbid(self):
 		'''

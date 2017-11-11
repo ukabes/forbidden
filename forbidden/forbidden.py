@@ -61,14 +61,12 @@ class Forbidden():
 
 	def _forbid_recursive_no_keys(self,data,depth=0):
 		glue = self.join_at(depth)
-		print(data)
 		if not any(isinstance(element,(list,tuple)) for element in data):
 			return data if isinstance(data,str) else glue.join(data)
 		else:
 			elements = []
 			for element in data:
 				elements.append(self._forbid_recursive_no_keys(element,depth+1))
-			print(elements)
 			return self._forbid_recursive_no_keys(elements,depth)
 
 	def allow(self):
@@ -81,7 +79,6 @@ class Forbidden():
 
 	def _allow_recursive_no_keys(self,data,depth=0):
 		glue = self.join_at(depth)
-
 		if isinstance(data,str) and glue in data:
 			elements = []
 			for element in data.split(glue):
@@ -96,10 +93,7 @@ class Forbidden():
 		'''
 		reset a forbidden object, in case you need to pass in different data
 		'''
-		if isinstance(data,str):
-			self._data_type = FORBIDDEN
-		else:
-			self._data_type = ALLOWED
+		self._data_type = FORBIDDEN if isinstance(data,str) else ALLOWED
 		self._data = data
 		self.forbidden_char = forbidden_char
 		self.forbidden_alias = forbidden_alias

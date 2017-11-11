@@ -1,4 +1,4 @@
 # forbidden
 ---
-### forbidden is a python data serialization into a string format called *forbidden*
+### forbidden is a data serialization format **formats data into text** called _forbidden_.
 
